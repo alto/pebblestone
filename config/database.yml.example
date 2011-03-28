@@ -1,0 +1,18 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  database: pebblestone_development
+  username: root
+  password:
+test: &TEST
+  adapter: mysql
+  encoding: utf8
+  database: pebblestone_test
+  username: root
+  password:
+production:
+  adapter: mysql
+  encoding: utf8
+  database: pebblestone_production
+  username: root
+  password:
