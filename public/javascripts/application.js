@@ -20,5 +20,10 @@ $(document).ready(function() {
       ctx.stroke();
     }    
   });
-});
 
+  window.onresize = function() {
+    var canvas = $("#canvas")
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  };
+});
