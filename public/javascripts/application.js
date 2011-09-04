@@ -2,15 +2,24 @@ function log() { if(typeof console !== "undefined" && console && console.log) {c
 
 $(document).ready(function() {
 
+  var px = -1;
+  var py = -1;
+
   function draw(x,y) {
-    // console.log("drawing(" + x + "," + y + ")");
+    console.log("drawing(" + x + "," + y + "," + px + "," + py + ")");
     ctx.lineWidth = 1;
     // ctx.lineCap = "round";
-    // ctx.beginPath();
+    ctx.beginPath();
     ctx.moveTo(x, y);
-    ctx.lineTo(x+1, y+1);
-    // ctx.closePath();
-    ctx.strokeStyle = "#000"
+    if (px >= 0) {
+      ctx.lineTo(px, py);
+    } else {      
+      ctx.lineTo(x+1, y+1);
+    }
+    px = x;
+    py = y;
+    //ctx.closePath();
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.3)"
     ctx.stroke();
   };
 
@@ -18,9 +27,19 @@ $(document).ready(function() {
   ctx.strokeStyle = 'black';
   var drawing = false;
   
+  $('img').bind('mousedown mouseup mousemove touchstart touchmove touchend', function(e){
+    e.preventDefault();
+  });
+  
   var canvas = $("#canvas")
-  canvas.bind("mousedown", function(e) {drawing=true;});
-  canvas.bind("mouseup", function(e) {drawing=false;});
+  canvas.bind("mousedown", function(e) {
+    drawing=true;
+  });
+  canvas.bind("mouseup touchend", function(e) {
+    px = -1;
+    py = -1;
+    drawing=false;
+  });
 
   canvas.bind("mousemove", function(e) {
     e.preventDefault();
